@@ -1,20 +1,23 @@
 import React, { useState } from 'react'
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 import axios from 'axios';
+import { useHistory } from 'react-router';
 
 const Create = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [checkbox, setCheckbox] = useState(false);
 
+    let history = useHistory();
+
     const postData = () => {
-        console.log(firstName);
-        console.log(lastName);
-        console.log(checkbox);
         axios.post('https://6105feac48c6fd0017089f7a.mockapi.io/fakeData',{
             firstName,
             lastName,
             checkbox
+        })
+        .then(() => {
+            history.push('/read')
         })
     }
 
