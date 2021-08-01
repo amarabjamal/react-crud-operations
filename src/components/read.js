@@ -6,13 +6,7 @@ import { Link } from 'react-router-dom';
 const Read = () => {
     const [APIData, setAPIData] = useState([]);
     useEffect(() => {
-        axios.get('https://6105feac48c6fd0017089f7a.mockapi.io/fakeData')
-            .then(response => {
-                /* console.log(response.data);
-                console.log(response.headers);
-                console.log(response.status); */
-                setAPIData(response.data);
-            })
+        getData()
     }, [])
 
     const setData = (data) => {
@@ -21,6 +15,18 @@ const Read = () => {
         localStorage.setItem('First Name', firstName);
         localStorage.setItem('Last Name', lastName);
         localStorage.setItem('Checkbox Value', checkbox)
+    }
+
+    const onDelete = id => {
+        axios.delete(`https://6105feac48c6fd0017089f7a.mockapi.io/fakeData/${id}`)
+        .then( () => getData())
+    }
+
+    const getData = () => {
+        axios.get(`https://6105feac48c6fd0017089f7a.mockapi.io/fakeData`)
+        .then((getData) => {
+                setAPIData(getData.data);
+            })
     }
     return (
         <div>
@@ -31,6 +37,7 @@ const Read = () => {
                         <Table.HeaderCell>Last Name</Table.HeaderCell>
                         <Table.HeaderCell>Checked</Table.HeaderCell>
                         <Table.HeaderCell>Update</Table.HeaderCell>
+                        <Table.HeaderCell>Delete</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
@@ -44,6 +51,7 @@ const Read = () => {
                                 <Link to='/update'>
                                     <Table.Cell><Button onClick={() => setData(data)}>Update</Button></Table.Cell>
                                 </Link>
+                                <Table.Cell><Button onClick={ () => onDelete(data.id)}>Delete</Button></Table.Cell>
                             </Table.Row>
                         )
                     })}
