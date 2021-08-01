@@ -1,12 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+:root {
+  --poppins :'Poppins', sans-serif;
+}
+
 .main {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #212121;
+  color: whitesmoke;
+  flex-direction: column;
 }
 
 .main-header {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--poppins);
+}
+
+.create-form label{
+  color: whitesmoke !important;
+  font-family: var(--poppins);
+  font-size: 12px !important;
 }
